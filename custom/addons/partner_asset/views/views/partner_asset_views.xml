@@ -1,0 +1,531 @@
+<odoo>
+  <data>
+      <record id="partner_asset_form_view" model="ir.ui.view">
+          <field name="name">partner_asset_form_view</field>
+          <field name="model">partner.asset</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+<!--                      <button name="liberez_asset" string="LIBERER CLIENT" type="object"/>-->
+<!--                      <button name="liberez_asset_entreprise" string="LIBERER ENTREPRISE" type="object"/>-->
+<!--                      <button name="generate_product_template" string="Générer un article" type="object" class="oe_highlight"/>-->
+<!--                      <button name="open_create_sale_order_wizard" string="Créer le Devis" type="object" class="oe_highlight"-->
+<!--    context="{'default_asset_id': active_id}"/>-->
+                  </header>
+                  <sheet>
+                      <div class="oe_title">
+                        <label for="name" string='Nom'/>
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                      </div>
+                      <group>
+                          <group>
+<!--                              <field name="asset_model" required='1' options="{'no_create': True}"/>-->
+                              <field name="acquisition_date" readonly="1"/>
+                              <field name="price" string="Prix"/>
+                          </group>
+                          <group>
+                              <field name="is_assign" invisible='1'/>
+                              <field name="services" widget="many2many_tags" options="{'no_create': True}"/>
+<!--                            <field name="asset_id" string='N° de serie' required='1'/>-->
+                              <field name="active" attrs="{'readonly': [('is_assign', '=', True)]}"/>
+                          </group>
+                      </group>
+
+<!--                      <notebook>-->
+<!--                        <page string="Bornes aux Clients" name="assign_partner_ids">-->
+<!--                            <field name="assign_partner_ids" widget="section_and_note_one2many" mode="tree">-->
+<!--                                -->
+<!--                                <tree string="Bornes aux Clients" editable="false" create="false">-->
+<!--                                    <field name="partner_id" string="Client" optional="show"/>-->
+<!--                                    <field name="name" widget="section_and_note_text" optional="show"/>-->
+<!--                                    <field name="city" invisible="0"/>-->
+<!--                                    <field name="street" invisible="0"/>-->
+<!--                                    <field name="state" invisible="1"/>-->
+<!--                                </tree>-->
+<!--                                -->
+<!--                            </field>-->
+<!--                            <group name="note_group" col="6" class="mt-2 mt-md-0">-->
+<!--                                <group colspan="4">-->
+<!--                                    <field name="partner_id" string='Client actuel'/>-->
+<!--                                </group>-->
+<!--                                -->
+<!--                                <div class="oe_clear"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                        <page string="Bornes aux Gestionnaire" name="assign_company">-->
+<!--                            <field name="assign_company_ids" widget="section_and_note_one2many" mode="tree">-->
+
+<!--                                <tree string="Bornes aux Gestionnaire" editable="false" create="false">-->
+<!--                                    <field name="name" widget="section_and_note_text" optional="show"/>-->
+<!--                                    <field name="entreprise_id" string="Gestionnaire" optional="show"/>-->
+
+<!--                                    <field name="latitude" invisible="0"/>-->
+<!--                                    <field name="longitude" invisible="0"/>-->
+<!--                                    <field name="state" invisible="1"/>-->
+<!--                                </tree>-->
+
+<!--                            </field>-->
+<!--                            <group name="note_group" col="6" class="mt-2 mt-md-0">-->
+<!--                                <group colspan="4">-->
+<!--                                    <field name="entreprise_id" string='Gestionnaire actuel'/>-->
+<!--                                </group>-->
+
+<!--                                <div class="oe_clear"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+
+<!--                        -->
+<!--                    </notebook>-->
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                  </div>
+              </form>
+          </field>
+      </record>
+      
+      <record id="partner_asset_tree_view" model="ir.ui.view">
+          <field name="name">partner_asset_tree_view</field>
+          <field name="model">partner.asset</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="price"/>
+<!--                  <field name='partner_id'/>-->
+                  <field name="active"/>
+              </tree>
+          </field>
+      </record>
+        <record id="partner_asset_search_view" model="ir.ui.view">
+            <field name="name">view_partner_asset_filter</field>
+            <field name="model">partner.asset</field>
+            <field name="arch" type="xml">
+                <search string="Borne">
+                    <field name="asset_id"/>
+                  <field name="price"/>
+<!--                  <field name='partner_id'/>-->
+
+                </search>
+            </field>
+        </record>
+      
+
+      
+      <record id="partner_asset_assignment_form_view" model='ir.ui.view'>
+          <field name="name">partner_asset_assignment_form_view</field>
+          <field name="model">partner.asset.assignment</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+                      <button name="button_to_approve" string="Soumettre" type="object" class="oe_highlight" states="draft"/>
+                      <button name="button_cancel" string="Annuler" type="object" class="oe_highlight" states="to_approve, done"/>
+                      <button name="action_validate" string="Valider" type="object" class="oe_highlight" states="to_approve"/>
+                      <button name="action_do_cancel" string="Annuler" type="object" class="oe_highlight" states="done"/>
+                      <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,done" statusbar_colors='{"to_approve":"blue"}'/>
+                  </header>
+                  <sheet>
+                  <script type="text/javascript" src="./partner_asset/static/src/js/map_init_script.js"></script>
+                      <div class="oe_title">
+                        <label for="name" string='Reference'/>
+                        <h1>
+                            <field name="name" required="1" readonly='1'/>
+                        </h1>
+                      </div>
+                      <group>
+                          <group>
+                              <field name="asset_id" string='Borne' required='1' attrs="{'readonly': [('state', '=', 'done')]}"/>
+                          </group>
+                          <group>
+                              <field name="partner_id" required='1' options="{'no_create': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                          </group>
+                          <group>
+                              <field name="city" string="Ville" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                              <field name="street" string="Rue" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                          </group>
+<!--                          <field name="latitude" invisible="0"/>-->
+<!--                        <field name="longitude" invisible="0"/>-->
+<!--                        <div>-->
+<!--                            Latitude: <span id="latitude_display"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            Longitude: <span id="longitude_display"/>-->
+<!--                        </div>-->
+<!--                          <iframe style="width: 100%; height: 400px; border: none;" src="./partner_asset/static/src/xml/map.html"></iframe>-->
+                          <!-- <div>
+                                        <iframe height="500" width="800"
+                                                src="partner\static\src\xml\map.html"></iframe>
+                                    </div> -->
+                          
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                  </div>
+              </form>
+          </field>
+      </record>
+      
+
+      <record id="partner_asset_assign_search_view" model="ir.ui.view">
+            <field name="name">view_partner_asset_filter</field>
+            <field name="model">partner.asset.assignment</field>
+            <field name="arch" type="xml">
+                <search string="Borne AssignÃ©">
+                  <field name="asset_id"/>
+                  <field name='partner_id'/>
+                    <field name="name"/>
+
+                </search>
+            </field>
+        </record>
+      
+      <record id="partner_asset_assignment_tree_view_1" model="ir.ui.view">
+          <field name="name">partner_asset_assignment_tree_view</field>
+          <field name="model">partner.asset.assignment</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="partner_id"/>
+                  <field name="asset_id"/>
+                  <field name="date"/>
+              </tree>
+          </field>
+      </record>
+      
+      <record id="action_asset_config_assignment" model="ir.actions.act_window">
+          <field name="name">Assigner Produit</field>
+          <field name="res_model">partner.asset.assignment</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type='xml'>
+              <p class="o_view_nocontent_smiling_face">
+                    Assigner les Produit aux clients
+                </p>
+          </field>
+      </record>
+      
+
+      <record id="action_asset_config" model="ir.actions.act_window">
+          <field name="name">Gestion des Produits</field>
+          <field name="res_model">partner.asset</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Gérez les Produits
+                </p>
+          </field>
+      </record>
+      <record id="action_partner_asset_company" model="ir.actions.act_window">
+          <field name="name">Gestion des Produits</field>
+          <field name="res_model">partner.asset.company</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Gérez les Produits
+                </p><p>
+                    Assigner les Produits aux Entreprises.
+                </p>
+          </field>
+      </record>
+      <record id="action_partner_entreprise" model="ir.actions.act_window">
+          <field name="name">Gestion des Entreprise</field>
+          <field name="res_model">partner.entreprise</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Gérez les Entreprises
+                </p><p>
+                    
+                </p>
+          </field>
+      </record>
+      <record id="partner_entreprise_form_view" model='ir.ui.view'>
+          <field name="name">partner_entreprise_form_view</field>
+          <field name="model">partner.entreprise</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header></header>
+                  <sheet>
+                      <group>
+                          <group>
+                              <field name="name" string='Nom'/>
+                              <field name="contact" string="Telephone"/>
+                          </group>
+                          <group>
+                              <field name="country_id" string="Pays" options="{'no_create': True}"/>
+                              <field name="city" string="Ville"/>
+                          </group>
+                          <group>
+                              <field name="street"/>
+                              <field name="email" string="email"/>
+                          </group>
+                          <group>
+                              <field name="commission"/>
+                            
+                          </group>
+<!--                          <field name="latitude" invisible="0"/>-->
+<!--                        <field name="longitude" invisible="0"/>-->
+<!--                        <div>-->
+<!--                            Latitude: <span id="latitude_display"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            Longitude: <span id="longitude_display"/>-->
+<!--                        </div>-->
+<!--                          <iframe style="width: 100%; height: 400px; border: none;" src="./partner_asset/static/src/xml/map.html"></iframe>-->
+<!--                      -->
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                  </div>
+              </form>
+          </field>
+      </record>
+
+
+        <record id="action_partner_ass_company" model="ir.actions.act_window">
+          <field name="name">Gestion Produits Entreprise</field>
+          <field name="res_model">partner.asset.company</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Gérez les Produits aux Entreprises
+                </p><p>
+                    
+                </p>
+          </field>
+      </record>
+      <record id="partner_assign_company_tree_view" model="ir.ui.view">
+          <field name="name">partner_company_assign_tree_view</field>
+          <field name="model">partner.asset.company</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="entreprise_id"/>
+                  <field name="asset_id"/>
+                  <field name='state'/>
+              </tree>
+          </field>
+      </record>
+      <record id="partner_assign_entreprise_form_view" model='ir.ui.view'>
+          <field name="name">partner_entreprise_form_view</field>
+          <field name="model">partner.asset.company</field>
+          <field name="arch" type="xml">
+             <form>
+                  <header>
+                   
+                      <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,done" statusbar_colors='{"to_approve":"blue"}'/>
+                  </header>
+                  <sheet>
+                  <script type="text/javascript" src="./partner_asset/static/src/js/map_init_script.js"></script>
+                      <div class="oe_title">
+                        <label for="name" string='Reference'/>
+                        <h1>
+                            <field name="name" required="1" readonly='1'/>
+                        </h1>
+                      </div>
+                      <group>
+                          <group>
+                              <field name="asset_id" string='Borne' required='1' options="{'no_create': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                          </group>
+                          <group>
+                              <field name="entreprise_id" required='1' options="{'no_create': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                          </group>
+                          <!-- <field name="latitude" invisible="1"/>
+                        <field name="longitude" invisible="1"/>
+                        <div>
+                            Latitude: <span id="latitude_display"/>
+                        </div>
+                        <div>
+                            Longitude: <span id="longitude_display"/>
+                        </div>
+                          <iframe style="width: 100%; height: 400px; border: none;" src="./partner_asset/static/src/xml/map.html"></iframe> -->
+                          <!-- <div>
+                                        <iframe height="500" width="800"
+                                                src="partner\static\src\xml\map.html"></iframe>
+                                    </div> -->
+                          
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
+      <!--- Abonnement -->
+      <record id="partner_subscription_form_view" model='ir.ui.view'>
+          <field name="name">Abonnement/Maintenance</field>
+          <field name="model">partner.subscription</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,expire,cancel" statusbar_colors='{"draft":"blue","confirm":"green","expire":"red"}'/>
+                  </header>
+                  <sheet>
+                      <div class="oe_title">
+                        <label for="name" string='Reference'/>
+                        <h1>
+                            <field name="name" required="1" readonly='1'/>
+                        </h1>
+                      </div>
+                      <group>
+                          <group>
+<!--                              <field name="name" string='Nom'/>-->
+                              <field name="type" string="Type Abonnement" options="{'no_create': True}" required="1"/>
+                          </group>
+                          <group>
+<!--                              <field name="asset_model_id" options="{'no_create': True}"/>-->
+                              <field name="asset_id" options="{'no_create': True}" required="1"/>
+                              <field name="partner_id" options="{'no_create': True}"/>
+                          </group>
+<!--                          <group>-->
+<!--                              <field name="first_date" required="1"/>-->
+<!--                              <field name="end_date" required="1"/>-->
+<!--                          </group>-->
+                      </group>
+                      <field name="amount" string="Montant" required="1"/>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                  </div>
+              </form>
+          </field>
+      </record>
+      <record id="partner_subs_tree_view" model="ir.ui.view">
+          <field name="name">Abonnement/Maintenance</field>
+          <field name="model">partner.subscription</field>
+          <field name="arch" type="xml">
+              <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="asset_id"/>
+                <field name="amount"/>
+
+              </tree>
+          </field>
+      </record>
+      <record id="action_partner_subscript" model="ir.actions.act_window">
+          <field name="name">Abonnement/Maintenance</field>
+          <field name="res_model">partner.subscription</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Les Abonnements des clients
+                </p><p>
+
+                </p>
+          </field>
+      </record>
+
+      <!--- SERVICES -->
+      <record id="partner_type_subs_form_view" model='ir.ui.view'>
+          <field name="name">SERVICES</field>
+          <field name="model">partner.subs.type</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+
+                  </header>
+                  <sheet>
+                      <group>
+                          <group>
+                              <field name="name" string='Nom' required="1"/>
+                              <field name="description" string="description" />
+                              <field name="price" required="1"/>
+                          </group>
+                      </group>
+
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                  </div>
+              </form>
+          </field>
+      </record>
+      <record id="partner_type_subs_tree_view" model="ir.ui.view">
+          <field name="name">SERVICES</field>
+          <field name="model">partner.subs.type</field>
+          <field name="arch" type="xml">
+              <tree>
+                <field name="name"/>
+                  <field name="price"/>
+              </tree>
+          </field>
+      </record>
+      <record id="action_partner_type_subs" model="ir.actions.act_window">
+          <field name="name">SERVICES</field>
+          <field name="res_model">partner.subs.type</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    SERVICES
+                </p><p>
+
+                </p>
+          </field>
+      </record>
+
+
+
+      <!--- Type Abonnement -->
+      <record id="partner_type_subscription_form_view" model='ir.ui.view'>
+          <field name="name">Gestion Abonnement</field>
+          <field name="model">type.subscription</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+
+                  </header>
+                  <sheet>
+                      <group>
+                          <group>
+                              <field name="name" string='Nom' required="1"/>
+                              <field name="description" string="description" />
+                              <field name="price" required="1"/>
+                          </group>
+                      </group>
+
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                  </div>
+              </form>
+          </field>
+      </record>
+      <record id="partner_type_subscription_tree_view" model="ir.ui.view">
+          <field name="name">Gestion Abonnement</field>
+          <field name="model">type.subscription</field>
+          <field name="arch" type="xml">
+              <tree>
+                <field name="name"/>
+                <field name="price"/>
+              </tree>
+          </field>
+      </record>
+      <record id="action_partner_type_subscription" model="ir.actions.act_window">
+          <field name="name">Gestion Abonnements</field>
+          <field name="res_model">type.subscription</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Type Abonnements
+                </p><p>
+
+                </p>
+          </field>
+      </record>
+  </data>
+</odoo>

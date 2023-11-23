@@ -1,0 +1,70 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="res_partner_views_asset">
+      <field name="name">res_partner_views_asset</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_tree"/>
+      <field name="arch" type="xml">
+
+          <field name="country_id" position='after'>
+<!--              <field name="model_asset" string="Modele Cong"/>-->
+              <field name="asset_nbr" optional="hide" sum="Total"/>
+              
+          </field>
+          
+      </field>
+    </record>
+    
+    <record id="res_partner_view_asset_buttons" model="ir.ui.view">
+            <field name="name">partner_asset.view.buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_view_asset_assignment"
+                        groups="sales_team.group_sale_salesman"
+                        icon="fa-credit-card">
+                        <field string="Borne" name="asset_nbr" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+      </record>
+      
+          <record id="view_res_partner_tree_inherit_asset" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="." position="inside">
+                <header>
+                   <button name="button_asset_upgrade" string="Assigne Borne" type="object"/>
+                </header>
+              </xpath>
+       
+        </field>
+    </record>
+
+      <record id="action_contacts_supplier" model="ir.actions.act_window">
+            <field name="name">Fournisseurs</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_supplier', '=', True)]</field>
+        </record>
+      <record id="action_contacts_customer" model="ir.actions.act_window">
+            <field name="name">Clients</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_customer', '=', True)]</field>
+        </record>
+
+              <!-- Menu pour les fournisseurs -->
+        <menuitem id="menu_contacts_supplier" name="Fournisseurs" parent="contacts.menu_contacts" action="partner_asset.action_contacts_supplier" sequence="50"/>
+
+        <!-- Menu pour les clients -->
+        <menuitem id="menu_contacts_customer" name="Clients" parent="contacts.menu_contacts"
+                  action="partner_asset.action_contacts_customer" sequence="51"/>
+
+
+  </data>
+</odoo>

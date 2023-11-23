@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="partner_custmer_custom_form" model="ir.ui.view">
+        <field name="name">partner_custmer_fiscal_regime_view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref='base.view_partner_form'/>
+            <field name="arch" type='xml'>
+                <xpath expr="//sheet/group/group[1]/field[@name='vat']" position='after'>
+                   <field name="regime_fiscal" string="Régime d’imposition fiscale"/>
+                </xpath>
+            </field>
+      </record>
+  </data>
+</odoo>

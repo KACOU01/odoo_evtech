@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="group_partner_asset_user" model="res.groups">
+            <field name="name">Droit cogélateurs</field>
+            <field name="comment">Enregistrer, créer et assigner les congélateurs</field>
+        </record>
+    </data>
+</odoo>

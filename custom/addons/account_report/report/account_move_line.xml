@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="action_report_account_inherit" model="ir.actions.report">
+            <field name="name">Factures EV TECH Detaillé</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_report.report_account_inherit</field>
+            <field name="report_file">account_report.report_account_inherit</field>
+            <field name="print_report_name">'Facture Detail- %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_account_synth" model="ir.actions.report">
+            <field name="name">Factures EV TECH Synth</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_report.report_account_inherit_synth</field>
+            <field name="report_file">account_report.report_account_inherit_synth</field>
+            <field name="print_report_name">'Facture - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+    </data>
+</odoo>

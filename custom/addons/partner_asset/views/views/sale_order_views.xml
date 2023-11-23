@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+      <record id="sale_order_partner_asset_view" model="ir.ui.view">
+        <field name="name">sale.order.partner.asset.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="date_debut" attrs="{'readonly': [('is_abonnement', '=', False)]}"/>
+                <field name="duree_en_mois" attrs="{'readonly': [('is_abonnement', '=', False)]}"/>
+                <field name="date_fin" attrs="{'readonly': [('is_abonnement', '=', False)]}"/>
+                <field name="is_abonnement" readonly="1" invible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>
+

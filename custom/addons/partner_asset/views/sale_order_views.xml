@@ -1,0 +1,78 @@
+<odoo>
+  <data>
+      <record id="sale_order_partner_asset_view" model="ir.ui.view">
+        <field name="name">sale.order.partner.asset.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="date_debut" attrs="{'readonly': [('is_maintenance', '!=', True)]}" invisible="1"/>
+                <field name="duree_en_mois" attrs="{'readonly': [('is_maintenance', '!=', True)]}" invisible="1"/>
+                <field name="date_fin" attrs="{'readonly': [('is_maintenance', '!=', True)]}" readonly="1" invisible="1"/>
+                <field name="is_maintenance" readonly="1" invisible="1"/>
+                <field name="serie_number" string="Numero Serie" invisible="1"/>
+            </xpath>
+             <xpath expr="//sheet/notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_total']" position="replace">
+                 <field name="price_total" widget="monetary" string="Total TTC"/>
+
+            </xpath>
+            <xpath expr="//sheet/notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_subtotal']" position="replace">
+                <field name="price_subtotal" widget="monetary" string="Total HT" />
+
+            </xpath>
+            <xpath expr="//group[@name='note_group']" position="after">
+                <group name="note_group">
+                    <field name="comment" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+<!--      <record id="sale_line_custom_form_view_tree_pack" model="ir.ui.view">-->
+<!--            <field name="name">sale_order_tree_view</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="inherit_id" ref='sale.view_quotation_tree_with_onboarding'/>-->
+<!--            <field name="arch" type='xml'>-->
+<!--                <field name="amount_total" position="replace">-->
+<!--                    <field name="amount_total" sum="Total TTC" widget="monetary" decoration-bf="1" optional="show"/>-->
+<!--                </field>-->
+<!--                <field name="amount_untaxed" position="replace">-->
+<!--                    <field name="amount_untaxed" sum="Total HT" widget="monetary" optional="show"/>-->
+<!--                </field>-->
+
+<!--            </field>-->
+<!--        </record>-->
+
+
+      <record id="sale_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.inherite.evtech</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref='sale.view_quotation_tree'/>
+            <field name="arch" type='xml'>
+<!--                <xpath expr="//tree/field[@name='amount_total']" position="replace">-->
+<!--                  <field name="amount_total" sum="Montant TTC" widget="monetary" optional="show"/>-->
+<!--                </xpath>-->
+                <xpath expr="//tree/field[@name='amount_total']" position="attributes">
+                  <attribute name="string">Montant TTC</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='amount_total']" position="attributes">
+                  <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='amount_untaxed']" position="replace">
+                  <field name="amount_untaxed" sum="Montant HT" widget="monetary" optional="show"/>
+                </xpath>
+
+                <xpath expr="//tree/field[@name='amount_total']" position="after">
+                  <field name="amount_paid" string="Montant payé" sum="Total Paye" decoration-bf="1" optional="show"/>
+                    <field name="amount_residual" string="Montant restant" sum="Total restant" decoration-bf="1" optional="show"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='state']" position="replace">
+                    <field name="state" decoration-success="state == 'sale' or state == 'done' or state == 'invoice_draft' or state == 'invoice_in_paid' or state == 'invoice_paid'" decoration-info="state == 'draft' or state == 'sent'" widget="badge" optional="show"/>
+                  <field name="state_payment" widget="badge" decoration-danger="state_payment == 'not_paid'" decoration-warning="state_payment in ('partial', 'in_payment')" decoration-success="state_payment in ('paid', 'reversed')"  optional="hide"/>
+                    <field name="state_invoice" widget="badge" decoration-success="state_invoice == 'posted'" decoration-info="state_invoice == 'draft'" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>
+

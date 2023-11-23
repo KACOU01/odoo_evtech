@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <data noupdate="1">
+    <record id="asset_assignment_seq" model="ir.sequence">
+        <field name="name">Asset Assignment Sequence</field>
+        <field name="code">assignment.code</field>
+        <field name="padding">5</field>
+        <field name="prefix">ASS:%(y)s-</field>
+        <field name="active">TRUE</field>
+        <!--<field name="range_reset">monthly</field>-->
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <!--<field eval="True" name="use_date_range"/>-->
+        <field name="company_id" eval="True" />
+        <field name='implementation'>standard</field>
+    </record>
+    <record id="asset_subscr_seq" model="ir.sequence">
+        <field name="name">Asset Subscript Sequence</field>
+        <field name="code">subscript.code</field>
+        <field name="padding">5</field>
+        <field name="prefix">SUB:%(y)s-</field>
+        <field name="active">TRUE</field>
+        <!--<field name="range_reset">monthly</field>-->
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <!--<field eval="True" name="use_date_range"/>-->
+        <field name="company_id" eval="True" />
+        <field name='implementation'>standard</field>
+    </record>
+        <record id="asset_payment_seq" model="ir.sequence">
+        <field name="name">Payment Sequence</field>
+        <field name="code">payment.code</field>
+        <field name="padding">5</field>
+        <field name="prefix">PAY:%(y)s-</field>
+        <field name="active">TRUE</field>
+        <!--<field name="range_reset">monthly</field>-->
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <!--<field eval="True" name="use_date_range"/>-->
+        <field name="company_id" eval="True" />
+        <field name='implementation'>standard</field>
+    </record>
+    </data>    
+</odoo>

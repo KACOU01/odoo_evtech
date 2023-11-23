@@ -1,0 +1,202 @@
+<odoo>
+  <data>
+      <record id="partner_asset_form_view" model="ir.ui.view">
+          <field name="name">partner_asset_form_view</field>
+          <field name="model">partner.asset</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+                  </header>
+                  <sheet>
+                      <div class="oe_title">
+                        <label for="name" string='Reference'/>
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                      </div>
+                      <group>
+                          <group>
+                              <field name="asset_model" required='1'/>
+                              <field name="acquisition_date"/>
+                              <field name="company_id" readonly="1"/>
+                          </group>
+                          <group>
+                              <field name="is_assign" invisible='1'/>
+                              <field name="asset_id" string='N° de série' required='1'/>
+                              <field name="active" attrs="{'readonly': [('is_assign', '=', True)]}"/>
+                          </group>
+                      </group>
+                      <field name="qr_code" widget='image' class="oe_avatar" attrs="{'invisible': [('asset_id', '=', False)]}"/>
+                      <group>
+                          <field name="description"/>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
+      
+      <record id="partner_asset_tree_view" model="ir.ui.view">
+          <field name="name">partner_asset_tree_view</field>
+          <field name="model">partner.asset</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="asset_model"/>
+                  <field name="asset_id"/>
+                  <field name="volume"/>
+                  <field name='partner_id'/>
+                  <field name="qr_code" optional="hide"/>
+                  <field name="active"/>
+                  <field name="company_id"/>
+              </tree>
+          </field>
+      </record>
+        <record id="partner_asset_search_view" model="ir.ui.view">
+            <field name="name">view_partner_asset_filter</field>
+            <field name="model">partner.asset</field>
+            <field name="arch" type="xml">
+                <search string="Congelateur">
+                   <field name="asset_model"/>
+                  <field name="asset_id"/>
+                  <field name="volume"/>
+                  <field name='partner_id'/>
+
+                </search>
+            </field>
+        </record>
+      
+      <record id="partner_asset_model_form_view" model='ir.ui.view'>
+          <field name="name">partner_asset_model_form_view</field>
+          <field name="model">partner.asset.model</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header></header>
+                  <sheet>
+                      <group>
+                          <group>
+                              <field name="name" string='Nom'/>
+                              <field name="vendors" widget="many2many_tags"/>
+                          </group>
+                          <group>
+                              <field name="volume"/>
+                              <field name="company_id" readonly='1'/>
+                          </group>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
+      
+      <record id="partner_asset_assignment_form_view" model='ir.ui.view'>
+          <field name="name">partner_asset_assignment_form_view</field>
+          <field name="model">partner.asset.assignment</field>
+          <field name="arch" type="xml">
+              <form>
+                  <header>
+                      <button name="button_to_approve" string="Soumettre" type="object" class="oe_highlight" states="draft"/>
+                      <button name="button_cancel" string="Annuler" type="object" class="oe_highlight" states="to_approve, done"/>
+                      <button name="action_validate" string="Valider" type="object" class="oe_highlight" states="to_approve"/>
+                      <button name="action_do_cancel" string="Annuler" type="object" class="oe_highlight" states="done"/>
+                      <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,done" statusbar_colors='{"to_approve":"blue"}'/>
+                  </header>
+                  <sheet>
+                      <div class="oe_title">
+                        <label for="name" string='Reference'/>
+                        <h1>
+                            <field name="name" required="1" readonly='1'/>
+                        </h1>
+                      </div>
+                      <group>
+                          <group>
+                              <field name="asset_id" string='Congélateur' required='1'/>
+                          </group>
+                          <group>
+                              <field name="partner_id" required='1'/>
+                          </group>
+                          <group>
+                              <field name="qr_code" widget='image' class="oe_avatar" attrs="{'invisible': [('asset_id', '=', False)]}"/>
+                          </group>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
+      
+      <record id="partner_asset_model_tree_view" model="ir.ui.view">
+          <field name="name">partner_asset_model_tree_view</field>
+          <field name="model">partner.asset.model</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="volume"/>
+                  <field name="vendors"/>
+                  <field name='company_id'/>
+              </tree>
+          </field>
+      </record>
+      <record id="partner_asset_assign_search_view" model="ir.ui.view">
+            <field name="name">view_partner_asset_filter</field>
+            <field name="model">partner.asset.assignment</field>
+            <field name="arch" type="xml">
+                <search string="Congelateur Assigné">
+                  <field name="asset_id"/>
+                  <field name='partner_id'/>
+                    <field name="name"/>
+
+                </search>
+            </field>
+        </record>
+      
+      <record id="partner_asset_assignment_tree_view_1" model="ir.ui.view">
+          <field name="name">partner_asset_assignment_tree_view</field>
+          <field name="model">partner.asset.assignment</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="partner_id"/>
+                  <field name="asset_id"/>
+                  <field name="date"/>
+                  <field name='company_id'/>
+              </tree>
+          </field>
+      </record>
+      
+      <record id="action_asset_config_assignment" model="ir.actions.act_window">
+          <field name="name">Assigner congélateur</field>
+          <field name="res_model">partner.asset.assignment</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type='xml'>
+              <p class="o_view_nocontent_smiling_face">
+                    Assigner les congélateurs aux clients
+                </p>
+          </field>
+      </record>
+      
+      <record id="action_asset_config_model" model='ir.actions.act_window'>
+          <field name="name">Modele de congélateur</field>
+          <field name="res_model">partner.asset.model</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type='xml'>
+              <p class="o_view_nocontent_smiling_face">
+                    Confugrer les modèles congélateurs
+                </p>
+          </field>
+      </record>
+      
+      <record id="action_asset_config" model="ir.actions.act_window">
+          <field name="name">Gestion des congelateurs</field>
+          <field name="res_model">partner.asset</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="xml">
+              <p class="o_view_nocontent_smiling_face">
+                    Gérez les congélateurs
+                </p><p>
+                    Assigner les congélateurs aux clients.
+                </p>
+          </field>
+      </record>
+  </data>
+</odoo>

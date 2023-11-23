@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car fleet</title>
+
+    <!-- leaflet css  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <!-- leaflet js  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Function to check if a value is a valid number
+        function isValidNumber(value) {
+            return !isNaN(parseFloat(value)) && isFinite(value);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var latitudeField = parent.document.querySelector('input[name="latitude"]');
+            var longitudeField = parent.document.querySelector('input[name="longitude"]');
+
+            var latitude = parseFloat(latitudeField.value);
+            var longitude = parseFloat(longitudeField.value);
+
+            if (isValidNumber(latitude) && isValidNumber(longitude)) {
+                // Map initialization
+                var map = L.map('map').setView([latitude, longitude], 6);
+                var marker = L.marker([latitude, longitude]).addTo(map);
+
+                // Add OpenStreetMap tile layer
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // Add click event to update marker position
+                map.on('click', function (ev) {
+                    var latlng = map.mouseEventToLatLng(ev.originalEvent);
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+                    marker = L.marker([latlng.lat, latlng.lng]).addTo(map);
+
+                    var latitudeDisplay = parent.document.getElementById('latitude_display');
+                    var longitudeDisplay = parent.document.getElementById('longitude_display');
+
+                    latitudeDisplay.innerHTML = latlng.lat;
+                    longitudeDisplay.innerHTML = latlng.lng;
+
+                    // Store values in hidden fields
+                    latitudeField.value = latlng.lat;
+                    longitudeField.value = latlng.lng;
+                    // Trigger change event on hidden fields to update the model
+                    latitudeField.dispatchEvent(new Event('change'));
+                    longitudeField.dispatchEvent(new Event('change'));
+
+                    console.log(latlng.lat + ', ' + latlng.lng);
+                });
+            } else {
+                // If latitude or longitude is not valid, use a default location
+                var map = L.map('map').setView([5.327850, -4.1000], 6);
+
+                // Add OpenStreetMap tile layer
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+            }
+        });
+    </script>
+</body>
+
+</html>

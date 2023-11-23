@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+
+
+
+    <menuitem id="partner_asset.menu_root" name="Catalogue" groups="partner_asset.group_partner_asset_user" sequence="100" web_icon="partner_asset,static/src/icon/odoo_icon.png" />
+
+
+      
+    <menuitem name="Gestion des services" id="partner_asset_config_assignment" parent="partner_asset.menu_root"
+         sequence='10' action="partner_asset.action_partner_type_subs"/>
+    <menuitem name="Gestion des Produits" id="partner_asset" parent="partner_asset.menu_root"
+        action="partner_asset.action_asset_config" sequence='12'/>
+<!--      <menuitem name="Gestion des Abonnement" id="menu_partner_subscription" parent="partner_asset.menu_root"-->
+<!--        action="partner_asset.action_partner_subscript" sequence='15'/>-->
+
+     <menuitem name="Gestion des Abonnement" id="menu_type_subscription" parent="partner_asset.menu_root"
+        action="partner_asset.action_partner_type_subscription" sequence='16'/>
+
+      <!--- Paiement -->
+
+        <menuitem id="menu_root_payment" name="Paiment" groups="partner_asset.group_partner_asset_user" sequence="80" web_icon="partner_asset,static/src/icon/icon_payment.png" />
+
+            <menuitem name="Paiemnt" id="partner_payment" parent="menu_root_payment"
+         sequence='10' action="partner_asset.action_payment_usage"/>
+    <menuitem name="Gestion Usager" id="partner_usager" parent="menu_root_payment"
+        action="partner_asset.action_partner_usager" sequence='12'/>
+
+  </data>
+</odoo>

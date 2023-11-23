@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_asset_user,partner_asset_user,model_partner_asset,base.group_user,1,1,1,1
+access_partner_asset_model_user,partner_asset_model_user,model_partner_asset_model,base.group_user,1,1,1,1
+access_partner_asset_portal,partner_asset_portal,model_partner_asset,base.group_portal,1,0,0,0
+access_partner_asset_model_portal,partner_asset_model_portal,model_partner_asset_model,base.group_portal,1,0,0,0
+access_partner_asset_state_user,partner_asset_state,model_partner_asset_state,base.group_user,1,0,0,0
+access_partner_asset_assignment_user,partner_asset_assignment_user,model_partner_asset_assignment,base.group_user,1,1,1,1
