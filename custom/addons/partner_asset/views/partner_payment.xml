@@ -45,6 +45,9 @@
           <field name="model">partner.payment.usage</field>
           <field name="arch" type="xml">
               <tree>
+                  <header>
+                        <button string="Import Payments from Excel" type="object" class="oe_highlight" icon="fa-upload" name="import_payments_from_excel"/>
+                    </header>
                 <field name="name"/>
                 <field name="asset_id"/>
                 <field name="partner_id"/>

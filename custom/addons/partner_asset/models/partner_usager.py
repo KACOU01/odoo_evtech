@@ -1,7 +1,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError,ValidationError
-
+import pandas as pd
 try:
    import qrcode
 except ImportError:
@@ -63,7 +63,64 @@ class PartnerPayment(models.Model):
         #    raise ValidationError(_('Vous ne pouvez pas supprimer une assignation déja validée'))
         #self.asset_id.unlink()
         return super(PartnerPayment, self).unlink()
-    
+
+    @api.model
+    def import_payments_from_excel(self):
+        # Open file picker dialog
+        return {
+            'name': _('Upload Excel File'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'ir.attachment',
+            'view_mode': 'form',
+            'view_id': self.env.ref('base.view_attachment_form').id,
+            'view_ids': [(False, 'form')],
+            'target': 'new',
+            'context': {
+                'default_res_model': 'partner.payment.usage',
+                'default_res_id': 0,
+                'default_res_field': 'file',
+            },
+        }
+
+    @api.model
+    def process_uploaded_file(self, attachment_id):
+        try:
+            attachment = self.env['ir.attachment'].browse(attachment_id)
+            if attachment and attachment.res_model == 'partner.payment.usage' and attachment.res_field == 'file':
+                # Process the file content (you can call your import function here)
+                file_content = attachment.datas.decode('utf-8')
+                self.import_payments_from_excel_(file_content)
+            else:
+                raise ValidationError(_("Invalid file. Please try again."))
+
+        except Exception as e:
+            raise ValidationError(_("An error occurred while processing the file: %s" % str(e)))
+
+    def import_payments_from_excel_(self, file_path):
+        try:
+            df = pd.read_excel(file_path)
+
+            for index, row in df.iterrows():
+                usager_name = row.get('Usager')  # Replace 'Usager' with the actual column name in your Excel file
+
+                # Check if the usager exists
+                # usager = self.env['partner.usager'].search([('name', '=', usager_name)])
+                # if not usager:
+                #     raise ValidationError(_("Usager '%s' not found. Please create the usager first." % usager_name))
+
+                payment_data = {
+                    'name': row['Name'],  # Replace 'Name' with the actual column name in your Excel file
+                    'amount': row['Amount'],  # Replace 'Amount' with the actual column name in your Excel file
+                    # 'usager_id': usager.id,
+                    # Add other fields as needed
+                }
+
+                self.create(payment_data)
+
+            return True
+
+        except Exception as e:
+            raise ValidationError(_("An error occurred while importing payments: %s" % str(e)))
 
     def action_payer(self):
         for paiement in self:
