@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
         'report/sale_report_inherit.xml',
+        'report/sale_report_evtech.xml',
         'report/sale_move_line.xml',
     ],
     # only loaded in demonstration mode
