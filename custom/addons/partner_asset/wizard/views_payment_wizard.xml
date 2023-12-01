@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="view_excel_import_wizard_form" model="ir.ui.view">
+            <field name="name">excel.import.wizard.form</field>
+            <field name="model">excel.import.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+<!--                        <field name="file" filename="file_name" string="Fichier Excel" accept="*.xls,*.xlsx"-->
+<!--                               required="1"/>-->
+                        <field name="file_name"/>
+                    </group>
+                    <footer>
+                        <button string="Annuler" class="oe_highlight" special="cancel"/>
+                        <button string="Importer" class="oe_highlight" type="object" name="button_import_" default_focus="1"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_excel_import_wizard" model="ir.actions.act_window">
+            <field name="name">Excel Import</field>
+            <field name="res_model">excel.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="IMPORT EXECL" id="payment_file_excel" parent="menu_root_payment"
+                  action="partner_asset.action_excel_import_wizard" sequence='15'/>
+    </data>
+</odoo>
