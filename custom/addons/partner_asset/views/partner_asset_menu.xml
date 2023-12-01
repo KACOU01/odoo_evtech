@@ -24,7 +24,7 @@
 
         <menuitem id="menu_root_payment" name="Paiment Usager" groups="partner_asset.group_partner_asset_user" sequence="80" web_icon="partner_asset,static/src/icon/icon_payment.png" />
 
-            <menuitem name="Paiemnt" id="partner_payment" parent="menu_root_payment"
+      <menuitem name="Paiemnt" id="partner_payment" parent="menu_root_payment"
          sequence='10' action="partner_asset.action_payment_usage"/>
     <menuitem name="Gestion Usager" id="partner_usager" parent="menu_root_payment"
         action="partner_asset.action_partner_usager" sequence='12'/>

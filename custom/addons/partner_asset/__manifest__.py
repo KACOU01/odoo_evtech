@@ -40,6 +40,7 @@
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
         'wizard/views_sale_asset_view.xml',
+        'wizard/views_payment_wizard.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

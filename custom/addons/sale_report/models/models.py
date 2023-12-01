@@ -24,7 +24,7 @@ class SaleOrder(models.Model):
         num_to_word = _num2words(num, lang=lang.iso_code)
         return num_to_word
 
-    # delivery_slip=fields.Char(string='N° Bordereau de Livraison')
+    police = fields.Integer(string='Police des rapport', default=10)
     # customer_reference=fields.Char(string='Ref. Commande Client')
     # signataire_facture=fields.Many2one('res.users', string='Signataire')
     # invoice_object=fields.Char(string='Objet :')

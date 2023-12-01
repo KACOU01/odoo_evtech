@@ -17,3 +17,5 @@ access_partner_asset_company,partner_asset_company,model_partner_asset_company,b
 access_wizard_sale_asset,create_sale_order_wizard,model_create_sale_order_wizard,base.group_user,1,1,1,1
 
 access_partner_contract,partner_asset,model_partner_contract,base.group_user,1,1,1,0
+
+access_payment_wizard_r,payment_wizard_import,model_excel_import_wizard,base.group_user,1,1,1,1

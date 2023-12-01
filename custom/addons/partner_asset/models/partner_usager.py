@@ -129,6 +129,18 @@ class PartnerPayment(models.Model):
             else:
                 raise ValidationError("Solde insuffisant pour effectuer le paiement.")
 
+    def create_or_get_usager(self, usager_name):
+        usager = self.env['partner.usager'].search([('name', 'ilike', usager_name)])
+        if not usager:
+            usager = self.env['partner.usager'].create({'name': usager_name})
+        return usager
+
+    def create_or_get_borne(self, borne_name):
+        borne = self.env['partner.asset'].search([('name', 'ilike', borne_name)])
+        if not borne:
+            borne = self.env['partner.asset'].create({'name': borne_name})
+        return borne
+
     @api.depends('amount', 'commission')
     def _compute_amount_commission(self):
         for payment in self:

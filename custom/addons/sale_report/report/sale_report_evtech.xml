@@ -4,16 +4,16 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
-                    <div class="page" style="font-size : 0.7.em;">
+                    <div class="page" style="font-size : {{ doc.police }}px;">
                         <div class="oe_structure"/>
                     <!-- <div class="row" style="margin-bottom:150px"> -->
                     <div class="row" style="margin-bottom:50px; width: auto; margin: 0; padding: 0px">
-                        <div class="col-6 text-left" style="padding:0px; margin:0px">
-                            <h2 class="mt16">
+                        <div class="col-6 text-left" style="padding:0px; margin:0px;">
+                            <h1 class="mt16">
                                 <span>DEVIS n°</span>
 
                                 <span t-field="doc.name"/>
-                            </h2>
+                            </h1>
 
                         </div>
                         <div class="col-6 text-right" style="padding:0px; margin:0px">
@@ -27,7 +27,7 @@
                     <hr/>
                     <div class="row">
 
-                        <div class="col-6" style="font-size : 0.7.em;">
+                        <div class="col-6" style="font-size : {doc.police - 2}px;">
                             <p style="padding: 5px;">
                                 <strong>Mon Entreprise</strong>
                             </p>
@@ -55,7 +55,7 @@
                             padding: 5px; /* Ajustez la valeur en fonction de l'espacement souhaité */
                             }
                         </style>
-                        <div class="col-7" style="background-color: #f2f2f2; font-size : 0.7.em;">
+                        <div class="col-7" style="background-color: #f2f2f2; #{doc.police - 2}px;">
                             <table class="table table-borderless custom-table">
                                 <tr>
                                     <th name="th_date" class="text-left" style="padding: 5px;">Date</th>
@@ -101,7 +101,7 @@
                             </table>
                         </div>
                         <div class="col-5 text-left" style="left: 50px">
-                            <p style="font-size : 0.7.em; font-weight : bold; padding: 5px;">
+                            <p style="#{doc.police - 2}px; font-weight : bold; padding: 5px;">
                                 <strong>Destinataire</strong>
                             </p>
                             <p style="padding: 5px;">
