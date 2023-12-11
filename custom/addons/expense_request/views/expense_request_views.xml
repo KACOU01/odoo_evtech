@@ -1,0 +1,105 @@
+<odoo>
+  <data>
+     <record model="ir.ui.view" id="expense_request_view">
+         <field name="name">expense_request_view</field>
+          <field name="model">expense.request</field>
+          <field name="arch" type="xml">
+            <form string="Exepnse Request">
+              <header>
+                  <button name="action_submit" type="object" string="Soumettre" class="oe_highlight" states="draft"/>
+                  <button name="button_approve" type="object" string="Approuver" class="oe_highlight" states="submit"/>
+                  <button name="action_post" type="object" string="Payer" class="oe_highlight" states="validate"/>
+                  <button name="create_account_move" type="object" string="Comptabiliser" class="oe_highlight" states="post"/>
+                  <field name="state" widget="statusbar" statusbar_visible="draft,submit,validate,post,reconcile,cancel"
+                     statusbar_colors='{"validate":"blue"}'/>
+              </header>
+              <sheet>
+                  <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                  </div>
+                  <div class="oe_edit_only">
+                     <label for="description" class="oe_inline" />
+                  </div>
+                   <h1>
+                        <field name="description" class="oe_inline"/>
+                    </h1>
+                  <group>
+                      <group>
+                          <field name="requested_by" required="1" attrs="{'readonly': [('state', 'not in', ['draft', 'submit'])]}"/>
+                          <field name="amount_due" required="1" attrs="{'readonly': [('state', 'not in', ['draft', 'submit'])]}"/>
+                          <field name="amount_justify" readonly="1"/>
+                          <field name="amount_residual" readonly="1"/>
+                          <field name="company_id" readonly="True" string="Société"/>
+                     </group>
+                      <group>
+                          <field name="date"/>
+                          <field name="account_id" readonly="1"/>
+                          <field name="journal_id" string="Journal"/>
+                      </group>
+                  </group>
+                  <notebook>
+                      <page string="Dépenses">
+                          <field name="line_ids" attrs="{'readonly':[('state', 'not in', ['post'])]}">
+                              <tree editable="bottom">
+                                  <field name="account_id"/>
+                                  <field name="name"/>
+                                  <field name="department_id" string="Service"/>
+                                  <field name="delivery_zone" string="Zone"/>
+                                  <field name="product_category" string="Famille"/>
+                                  <field name="fleet_vehicle" string="Engin"/>
+                                  <field name="debit"/>
+                                  <field name="credit"/>
+                              </tree>
+                          </field>
+                      </page>
+                      <page string="Ecritures comptables">
+                          <field name="move_lines" attrs="{'readonly':[('state', 'not in', ['post'])]}">
+                              <tree>
+                                  <field name="account_id"/>
+                                  <field name="name"/>
+                                  <field name="department_id" string="Service"/>
+                                  <field name="delivery_zone" string="Zone"/>
+                                  <field name="product_category" string="Famille"/>
+                                  <field name="fleet_vehicle" string="Engin"/>
+                                  <field name="debit"/>
+                                  <field name="credit"/>
+                              </tree>
+                          </field>
+                      </page>
+                      <page string="Ecritures comptables">
+                          <field name="move_lines" readonly="1">
+                              <tree editable="bottom">
+                                  <field name="account_id"/>
+                                  <field name="name"/>
+                                  <field name="department_id" string="Service"/>
+                                  <field name="delivery_zone" string="Zone"/>
+                                  <field name="product_category" string="Famille"/>
+                                  <field name="fleet_vehicle" string="Engin"/>
+                                  <field name="debit"/>
+                                  <field name="credit"/>
+                              </tree>
+                          </field>
+                      </page>
+                  </notebook>
+                  <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                  </div>
+              </sheet>
+            </form>
+          </field>
+    </record>  
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="expense_request_action_window">
+      <field name="name">Expense Management</field>
+      <field name="res_model">expense.request</field>
+      <field name="domain"></field>
+      <field name="view_mode">tree,form</field>
+    </record>
+      
+  </data>
+</odoo>

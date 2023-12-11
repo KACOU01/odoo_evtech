@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+    <menuitem id="expense_request.menu_root"
+        name="Caisse des dépenses"
+        groups="hr.group_hr_user"
+        sequence="100"
+        web_icon="hr_expense,static/description/icon.png"
+    />
+    <menuitem name="Expenses" id="expense_request.expense" parent="expense_request.menu_root"
+        action="expense_request_action_window"/>
+      
+    <!--<menuitem name="Reports" id="expense_request.report" parent="expense_request.menu_root"
+        action="expense_line_action_window"/>-->
+      
+    <menuitem
+        action="expense_request_action_window"      
+        id="menu_expense_request_request_expense"
+        sequence="01"      
+        parent="expense_request.expense"
+    />
+      
+    <menuitem id="menu_expense_request_config" name="Settings" parent="expense_request.menu_root"
+        sequence="999"
+        action="action_expense_request_config"
+        groups="base.group_system"
+    />
+  </data>
+</odoo>
