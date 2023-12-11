@@ -29,7 +29,7 @@
 
                         <div class="col-6" style="font-size : {doc.police - 2}px;">
                             <p style="padding: 5px;">
-                                <strong>Mon Entreprise</strong>
+                                <strong><span t-field="doc.company_id.name"/></strong>
                             </p>
                             <p style="padding: 5px;">
                                 <span t-field="doc.company_id.street"/>
@@ -90,8 +90,8 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th name="th_date" class="text-left" style="padding: 5px;">Date de debut de la
-                                        presentation
+                                    <th name="th_date" class="text-left" style="padding: 5px;">Date de validité du devis
+
                                     </th>
                                     <th name="" class="text-left" style="padding: 5px;">
                                         <span t-field="doc.validity_date"
@@ -105,7 +105,7 @@
                                 <strong>Destinataire</strong>
                             </p>
                             <p style="padding: 5px;">
-                                <strong>Acheteur SA</strong>
+                                <strong>Acheteur:</strong>
                                 <br/>
                                 <span t-field="doc.partner_id"/>
                                 <br/>
@@ -124,7 +124,7 @@
                         <div class="oe_structure"/>
                         <span>Information additionelles</span>
                         <br/>
-                        <span>Service après-vente - Garantie 1 ans</span>
+                        <span>Service après-vente - Garantie 1 an</span>
 <!--                        <span t-field="doc.note"/>-->
 
                         <br/> <br/>
