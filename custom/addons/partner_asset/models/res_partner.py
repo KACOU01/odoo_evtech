@@ -6,6 +6,7 @@ from odoo import models, fields, api, _
 class ResPartner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
+
     is_supplier = fields.Boolean(string='Est un Fournisseur', default=False,store=True)
     is_customer = fields.Boolean(string='Est un client',default=False,store=True)
     
@@ -19,7 +20,88 @@ class ResPartner(models.Model):
 
     contract_ids = fields.One2many('partner.contract', 'partner_id', string='Contracts')
 
-    
+    lastname_inter = fields.Char("Nom Interlocuteur", index=True)
+    firstname_inter = fields.Char("Prenom Interlocuteur", index=True)
+
+
+    # name_inter = fields.Char(
+    #     compute="_compute_name_inter",
+    #     inverse="_inverse_name_inter_after_cleaning_whitespace",
+    #     required=False,
+    #     store=True,
+    #     readonly=False,
+    #     string="Nom complet Inter"
+    # )
+    #
+    #
+    # @api.depends("lastname_inter", "firstname_inter")
+    # def _compute_name_inter(self):
+    #     for record in self:
+    #         record.name = record._get_computed_name(record.lastname_inter, record.firstname_inter)
+    #
+    # def _inverse_name_inter_after_cleaning_whitespace(self):
+    #
+    #     for record in self:
+    #         # Remove unneeded whitespace
+    #         clean = record._get_whitespace_cleaned_name(record.name)
+    #         record.name = clean
+    #         record._inverse_name_inter()
+    #
+    # @api.model
+    # def _get_whitespace_cleaned_name_inter(self, name, comma=False):
+    #
+    #     if isinstance(name, bytes):
+    #         # With users coming from LDAP, name can be a byte encoded string.
+    #         # This happens with FreeIPA for instance.
+    #         name = name.decode("utf-8")
+    #
+    #     try:
+    #         name = " ".join(name.split()) if name else name
+    #     except UnicodeDecodeError:
+    #         # with users coming from LDAP, name can be a str encoded as utf-8
+    #         # this happens with ActiveDirectory for instance, and in that case
+    #         # we get a UnicodeDecodeError during the automatic ASCII -> Unicode
+    #         # conversion that Python does for us.
+    #         # In that case we need to manually decode the string to get a
+    #         # proper unicode string.
+    #         name = " ".join(name.decode("utf-8").split()) if name else name
+    #
+    #     if comma:
+    #         name = name.replace(" ,", ",")
+    #         name = name.replace(", ", ",")
+    #     return name
+    #
+    # @api.model
+    # def _get_inverse_name_inter(self, name, is_company=False):
+    #
+    #     # Company name goes to the lastname
+    #     if is_company or not name:
+    #         parts = [name or False, False]
+    #     # Guess name splitting
+    #     else:
+    #         order = self._get_names_order()
+    #         # Remove redundant spaces
+    #         name = self._get_whitespace_cleaned_name_inter(
+    #             name, comma=(order == "last_first_comma")
+    #         )
+    #         parts = name.split("," if order == "last_first_comma" else " ", 1)
+    #         if len(parts) > 1:
+    #             if order == "first_last":
+    #                 parts = [" ".join(parts[1:]), parts[0]]
+    #             else:
+    #                 parts = [parts[0], " ".join(parts[1:])]
+    #         else:
+    #             while len(parts) < 2:
+    #                 parts.append(False)
+    #     return {"lastname_inter": parts[0], "firstname_inter": parts[1]}
+    #
+    # def _inverse_name_inter(self):
+    #
+    #     for record in self:
+    #         parts = record._get_inverse_name_inter(record.name_inter, record.is_company)
+    #         record.lastname_inter = parts["lastname_inter"]
+    #         record.firstname_inter = parts["firstname_inter"]
+
     def button_asset_upgrade(self):
         for rec in self:
             if rec.assignment_ids:
@@ -47,11 +129,7 @@ class ResPartner(models.Model):
         for rec in self:
             if rec.assignment_ids:
                 rec.assignment_id = rec.assignment_ids[0]
-    
-    def button_asset_upgrade(self):
-        for rec in self:
-            if rec.assignment_ids:
-                rec.assignment_id = rec.assignment_ids[0]
+
             
     def action_view_asset_assignment(self):
         action = self.env['ir.actions.act_window']._for_xml_id('partner_asset.action_asset_config_assignment')

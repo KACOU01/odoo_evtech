@@ -14,4 +14,5 @@ from . import partner_usager
 from . import res_company
 from . import stock_picking
 from . import account
+
 #from . import partner_asset_marque

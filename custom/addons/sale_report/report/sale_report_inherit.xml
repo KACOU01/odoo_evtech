@@ -109,7 +109,7 @@
                                     <span t-field="doc.date_order" t-options='{"widget": "date", "date_format": "DD/MM/YYYY"}'/>
                                 </strong>
                                 <p>
-                                    <strong>Emis par :
+                                    <strong>Suivi par :
                                         <span t-field="doc.user_id"/>
                                     </strong>
                                 </p>
@@ -137,7 +137,7 @@
                                     <span t-field="doc.date_order" t-options='{"widget": "date", "date_format": "DD/MM/YYYY"}'/>
                                 </strong>
                                 <p>
-                                    <strong>Emis par :
+                                    <strong>Suivi par :
                                         <span t-field="doc.user_id"/>
                                     </strong>
                                 </p>
@@ -208,11 +208,11 @@
                                         </td>
                                         <td class="text-right">
                                             <span class="text-nowrap" t-esc="summary['price_unit']"
-                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                                  t-options='{"widget": "float", "precision": 0}'/>
                                         </td> <!-- Empty cell for PRIX UNITAIRE -->
                                         <t t-if="summary['amount_discount'] > 0">
                                             <td class="text-right">
-                                            <span class="text-nowrap" t-esc="summary['amount_discount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                            <span class="text-nowrap" t-esc="summary['amount_discount']" t-options='{"widget": "float", "precision": 0}'/>
                                             </td>
                                         </t>
                                         <t t-else="">
@@ -229,7 +229,7 @@
 
                                         <td class="text-right o_price_total">
                                             <span t-esc="summary['subtotal']"
-                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                                  t-options='{"widget": "float", "precision": 0}'/>
                                         </td>
                                     </tr>
                                 </t>
@@ -299,9 +299,12 @@
                                 <p t-field="doc.signed_by"/>
                             </div>
                         </div>
+                        <span t-field="doc.comment"/>
 
                         <div class="oe_structure"/>
-
+<!--                        <p style="padding: 1px;font-size: 0.5px;">-->
+<!--                            <strong><span t-field="doc.comment"/></strong>-->
+<!--                        </p>-->
                         <p t-field="doc.note"/>
                         <!--<p t-if="not is_html_empty(doc.payment_term_id.note)">-->
                         <!--    <span t-field="doc.payment_term_id.note"/>-->

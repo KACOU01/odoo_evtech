@@ -4,19 +4,19 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
-                    <div class="page" style="font-size : {{ doc.police }}px;">
+                    <div class="page" style="font-size : 10px;">
                         <div class="oe_structure"/>
                     <!-- <div class="row" style="margin-bottom:150px"> -->
                     <div class="row" style="margin-bottom:50px; width: auto; margin: 0; padding: 0px">
-                        <div class="col-6 text-left" style="padding:0px; margin:0px;">
-                            <h1 class="mt16">
-                                <span>DEVIS n°</span>
+<!--                        <div class="col-6 text-left" style="padding:0px; margin:0px;">-->
+<!--                            <h1 class="mt16">-->
+<!--                                <span>DEVIS n°</span>-->
 
-                                <span t-field="doc.name"/>
-                            </h1>
+<!--                                <span t-field="doc.name"/>-->
+<!--                            </h1>-->
 
-                        </div>
-                        <div class="col-6 text-right" style="padding:0px; margin:0px">
+<!--                        </div>-->
+                        <div class="col-6 text-left" style="padding:0px; margin:0px">
 
                             <img src='/sale_report/static/src/img/ev-tech.png'
                                  style="magin:0px; padding:0px; max-width: 100%; height: auto; width: auto"/>
@@ -27,21 +27,28 @@
                     <hr/>
                     <div class="row">
 
-                        <div class="col-6" style="font-size : {doc.police - 2}px;">
-                            <p style="padding: 5px;">
-                                <strong><span t-field="doc.company_id.name"/></strong>
-                            </p>
-                            <p style="padding: 5px;">
-                                <span t-field="doc.company_id.street"/>
-                                <br/>
-                                <span t-field="doc.company_id.street2"/>,
-                                <span t-field="doc.company_id.country_id.name"/>
-                                <br/>
-                                <span t-field="doc.company_id.phone"/>
-                            </p>
+<!--                        <div class="col-6" style="font-size : {doc.police - 2}px;">-->
+<!--                            <p style="padding: 5px;">-->
+<!--                                <strong><span t-field="doc.company_id.name"/></strong>-->
+<!--                            </p>-->
+<!--                            <p style="padding: 5px;">-->
+<!--                                <span t-field="doc.company_id.street"/>-->
+<!--                                <br/>-->
+<!--                                <span t-field="doc.company_id.street2"/>,-->
+<!--                                <span t-field="doc.company_id.country_id.name"/>-->
+<!--                                <br/>-->
+<!--                                <span t-field="doc.company_id.phone"/>-->
+<!--                            </p>-->
+
+<!--                        </div>-->
+                        <div class="col-6 text-left" style="padding:0px; margin:0px;">
+                            <h1 class="mt16">
+                                <span>DEVIS n°</span>
+
+                                <span t-field="doc.name"/>
+                            </h1>
 
                         </div>
-
 
                     </div>
                     <br/>
@@ -78,13 +85,13 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th name="th_date" class="text-left" style="padding: 5px;">Emis par</th>
+                                    <th name="th_date" class="text-left" style="padding: 5px;">Suivi par</th>
                                     <th name="" class="text-left" style="padding: 5px;">
                                         <span t-field="doc.user_id"/>
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th name="th_date" class="text-left" style="padding: 5px;">Contact du client</th>
+                                    <th name="th_date" class="text-left" style="padding: 5px;">Ref. client</th>
                                     <th name="" class="text-left" style="padding: 5px;">
                                         <span t-field="doc.partner_id"/>
                                     </th>
@@ -101,7 +108,7 @@
                             </table>
                         </div>
                         <div class="col-5 text-left" style="left: 50px">
-                            <p style="#{doc.police - 2}px; font-weight : bold; padding: 5px;">
+                            <p style="{doc.police - 2}px; font-weight : bold; padding: 5px;">
                                 <strong>Destinataire</strong>
                             </p>
                             <p style="padding: 5px;">
@@ -162,14 +169,14 @@
                                                 <span t-field="line.name"/>
                                             </td>
                                             <td name="td_quantity" class="text-right">
-                                                <span t-field="line.product_uom_qty"/>
+                                                <span t-field="line.product_uom_qty" t-options='{"widget": "float", "precision": 0}'/>
                                             </td>
                                             <td name="td_unit" class="text-right">
                                                 <span t-field="line.product_uom"/>
                                             </td>
                                             <td name="td_priceunit" class="text-right">
                                                 <span t-field="line.price_unit"
-                                                      t-options='{&quot;widget&quot;: &quot;monetary&quot;,"display_currency": doc.pricelist_id.currency_id,}'/>
+                                                      t-options='{"widget": "float", "precision": 0}'/>
                                             </td>
                                             <!-- <t t-if="line.discount > 0">
                                               <td class="text-right">
@@ -189,12 +196,12 @@
 
                                             <td name="td_taxes" class="text-right">
                                                 <span t-field="line.price_tax"
-                                                      t-options='{&quot;widget&quot;: &quot;monetary&quot;,"display_currency": doc.pricelist_id.currency_id,}'/>
+                                                      t-options='{"widget": "float", "precision": 0}'/>
                                             </td>
                                             <td name="td_subtotal" class="text-right o_price_total">
                                                 <!--<span t-esc="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" t-options='{&quot;widget&quot;: &quot;monetary&quot;,"display_currency": doc.pricelist_id.currency_id,}'/>-->
                                                 <span t-field="line.price_subtotal"
-                                                      t-options='{&quot;widget&quot;: &quot;monetary&quot;,"display_currency": doc.pricelist_id.currency_id,}'/>
+                                                      t-options='{"widget": "float", "precision": 0}'/>
                                             </td>
                                         </t>
                                         <t t-if="line.display_type == 'line_section'">
@@ -214,7 +221,7 @@
                                     <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section')">
                                         <tr class="is-subtotal text-right">
                                             <td name="td_section_subtotal" colspan="99">
-                                                <strong class="mr16">Subtotal</strong>
+                                                <strong class="mr16">Sous Total</strong>
                                                 <span t-esc="current_subtotal"
                                                       t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                             </td>
@@ -269,15 +276,18 @@
                         <br/>
 
                         <div class="mt32 ml64 mr6" name="signature">
-                            <div class="offset-6 text-left" style="font-size : 0.2.em; background-color: #f2f2f2;">
+                            <div class="offset-6 text-left" style="font-size : 0.1.em; background-color: #f2f2f2;">
                                 <strong>Signature du client (précédée de la maison Bon pour accord )</strong>
                             </div>
 
                         </div>
+                        <span t-field="doc.comment"/>
 
                         <div class="oe_structure"/>
 
-
+<!--                        <p style="padding: 1px;font-size: 0.5px;">-->
+<!--                            <strong><span t-field="doc.comment"/></strong>-->
+<!--                        </p>-->
                     </div>
                 </t>
             </t>

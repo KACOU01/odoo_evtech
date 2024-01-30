@@ -51,9 +51,9 @@ class ExpenseLine(models.Model):
     account_id = fields.Many2one('account.account')
     department_id = fields.Many2one('hr.department')
     fleet_vehicle = fields.Many2one('fleet.vehicle')
-    delivery_zone = fields.Many2one('partner.delivery.zone')
+    # delivery_zone = fields.Many2one('partner.delivery.zone')
     product_category = fields.Many2one('product.category')
-    analytic_tag_ids = fields.Many2many("account.analytic.tag", compute="_compute_analytic_tags")
+    # analytic_tag_ids = fields.Many2many("account.analytic.tag", compute="_compute_analytic_tags")
     move_lines = fields.One2many("account.move.line", "expense_id")
     has_move_line = fields.Boolean(default=False)
     debit = fields.Float("Debit", digits='Product Price')
@@ -61,23 +61,23 @@ class ExpenseLine(models.Model):
     
 
 
-    @api.depends("product_category.analytic_tag", "delivery_zone.analytic_tag", "department_id.analytic_tag", "fleet_vehicle.analytic_tag")
-    def _compute_analytic_tags(self):
-        for line  in self:
-            analytic_tag = []
-            product = line.product_category.analytic_tag or False
-            zone = line.delivery_zone.analytic_tag or False
-            department = line.department_id.analytic_tag or False
-            vehicle = line.fleet_vehicle.analytic_tag or False
-            if product:
-                analytic_tag.append(product.id)
-            if zone:
-                analytic_tag.append(zone.id)
-            if department:
-                analytic_tag.append(department.id)
-            if vehicle:
-                analytic_tag.append(vehicle.id)
-            line.analytic_tag_ids = analytic_tag
+    # @api.depends("product_category.analytic_tag", "delivery_zone.analytic_tag", "department_id.analytic_tag", "fleet_vehicle.analytic_tag")
+    # def _compute_analytic_tags(self):
+    #     for line  in self:
+    #         analytic_tag = []
+    #         product = line.product_category.analytic_tag or False
+    #         zone = line.delivery_zone.analytic_tag or False
+    #         department = line.department_id.analytic_tag or False
+    #         vehicle = line.fleet_vehicle.analytic_tag or False
+    #         if product:
+    #             analytic_tag.append(product.id)
+    #         if zone:
+    #             analytic_tag.append(zone.id)
+    #         if department:
+    #             analytic_tag.append(department.id)
+    #         if vehicle:
+    #             analytic_tag.append(vehicle.id)
+    #         line.analytic_tag_ids = analytic_tag
 
     def _get_account_move_line(self):
         pass

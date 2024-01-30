@@ -20,14 +20,12 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['hr_contract', 'account', "analytic_multi_dimension",],
+    'depends': ['hr_contract', 'account',],
 
     # always loaded
     'data': [
         'security/expense_request_security.xml',
         'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
         'views/res_config_settings_views.xml',
         'views/expense_request_views.xml',
         'views/expense_request_menu.xml',

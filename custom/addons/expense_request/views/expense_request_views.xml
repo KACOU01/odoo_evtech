@@ -46,7 +46,7 @@
                                   <field name="account_id"/>
                                   <field name="name"/>
                                   <field name="department_id" string="Service"/>
-                                  <field name="delivery_zone" string="Zone"/>
+<!--                                  <field name="delivery_zone" string="Zone"/>-->
                                   <field name="product_category" string="Famille"/>
                                   <field name="fleet_vehicle" string="Engin"/>
                                   <field name="debit"/>
@@ -60,7 +60,7 @@
                                   <field name="account_id"/>
                                   <field name="name"/>
                                   <field name="department_id" string="Service"/>
-                                  <field name="delivery_zone" string="Zone"/>
+<!--                                  <field name="delivery_zone" string="Zone"/>-->
                                   <field name="product_category" string="Famille"/>
                                   <field name="fleet_vehicle" string="Engin"/>
                                   <field name="debit"/>
@@ -74,7 +74,7 @@
                                   <field name="account_id"/>
                                   <field name="name"/>
                                   <field name="department_id" string="Service"/>
-                                  <field name="delivery_zone" string="Zone"/>
+<!--                                  <field name="delivery_zone" string="Zone"/>-->
                                   <field name="product_category" string="Famille"/>
                                   <field name="fleet_vehicle" string="Engin"/>
                                   <field name="debit"/>

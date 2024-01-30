@@ -5,12 +5,9 @@
       <sourceFolder url="file://$MODULE_DIR$/python" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/python/DLLs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/python/Lib" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python/Lib/site-packages" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python/Lib/site-packages/pythonwin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python/Lib/site-packages/win32" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python/Lib/site-packages/win32/lib" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (Odoo 15.0.20231123)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

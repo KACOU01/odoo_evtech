@@ -16,3 +16,12 @@
 2023-11-23 15:06:39,786 23780 INFO ? odoo.service.server: Initiating shutdown 
 2023-11-23 15:06:39,805 23780 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
 2023-11-23 15:06:40,067 23780 INFO ? odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 0 connections  
+2024-01-29 09:17:24,146 15948 INFO ? odoo: Odoo version 15.0-20231123 
+2024-01-29 09:17:24,146 15948 INFO ? odoo: Using configuration file at C:\Program Files\Odoo 15.0.20231123\server\odoo.conf 
+2024-01-29 09:17:24,146 15948 INFO ? odoo: addons paths: ['C:\\Program Files\\Odoo 15.0.20231123\\server\\odoo\\addons', 'c:\\users\\jonas.gnangbi\\appdata\\local\\openerp s.a\\odoo\\addons\\15.0', 'c:\\program files\\odoo 15.0.20231123\\server\\odoo\\addons', 'c:\\program files\\odoo 15.0.20231123\\custom\\addons'] 
+2024-01-29 09:17:24,146 15948 INFO ? odoo: database: odoo15@localhost:5433 
+2024-01-29 09:17:24,266 15948 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\Program Files\Odoo 15.0.20231123\thirdparty\wkhtmltopdf.exe 
+2024-01-29 09:17:24,419 15948 INFO ? odoo.service.server: HTTP service (werkzeug) running on DP-CISD-0001.sunu-group.com:8060 
+2024-01-29 09:18:01,167 15948 INFO ? odoo.service.server: Initiating shutdown 
+2024-01-29 09:18:01,168 15948 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2024-01-29 09:18:01,199 15948 INFO ? odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 2 connections  
