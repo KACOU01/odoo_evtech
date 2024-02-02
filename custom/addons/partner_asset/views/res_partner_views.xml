@@ -36,43 +36,65 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
-<!--                <xpath expr="." position="inside">-->
-<!--                    <header>-->
-<!--                        <button name="button_asset_upgrade" string="Assigne Borne" type="object"/>-->
-<!--                    </header>-->
-<!--                </xpath>-->
+                <xpath expr="." position="inside">
+                    <header>
+                        <button name="button_asset_upgrade" string="Mettre en type client" type="object"/>
+                    </header>
+                </xpath>
 
             </field>
         </record>
+
+<!--        <record id="for_partner_inherit_email" model="ir.ui.view">-->
+<!--            <field name="name">mail.res.partner</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="email" position="replace">-->
+
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="view_replace_form_" model="ir.ui.view">
             <field name="name">Replace</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//sheet/div[2]/field[@name='company_type']" position='after'>
+                    <div>
+                        <label for="is_supplier" string="Est un Fournisseur"
+                               attrs="{'invisible': [('is_supplier', '=', False)]}"/>
+                        <field name="is_supplier" no_label="1" attrs="{'invisible': [('is_supplier', '=', False)]}"
+                               readonly="1"/>
+                        <label for="is_customer" string="Est un client"
+                               attrs="{'invisible': [('is_supplier', '=', True)]}"/>
+                        <field name="is_customer" no_label="1" attrs="{'invisible': [('is_supplier', '=', True)]}"
+                               readonly="1"/>
+
+
+                    </div>
+                </xpath>
                 <field name="function" position="replace">
                     <field name="function" placeholder="e.g. Sales Director"
                            attrs="{'invisible': [('is_company','=', True)]}" invisible="1"/>
                 </field>
-                <field name="email" position="replace">
-                    <field name="email" widget="email" context="{'gravatar_image': True}" string="Email Fournisseur"
-                           attrs="{'invisible': [('is_supplier', '=', False)], 'required':[('is_supplier', '=', True)]}"/>
-                    <field name="email" widget="email" context="{'gravatar_image': True}" string="Email Ref"
-                           attrs="{'invisible': [('is_supplier', '=', True)], 'required':[('is_supplier', '=', False)]}"/>
-                </field>
+<!--                <field name="email" position="replace">-->
+
+<!--                </field>-->
                 <field name="website" position="replace">
                     <field name="website" string="Website" widget="url" placeholder="e.g. https://www.odoo.com"
                            invisible="1"/>
                 </field>
-<!--                <label name="phone" posotion="replace">-->
-
-<!--                </label>-->
                 <field name="phone" position="replace">
                     <field name="phone" string="" invisible="1"/>
                     <!--                    <field name="phone" widget="phone" string="Téléphone" invisible="1"/>-->
                 </field>
                 <field name="mobile" position="replace">
-                    <field name="mobile" string="Téléphone Ref" attrs="{'required':[('is_supplier', '=', False)], 'widget':'phone'}"/>
+                    <field name="mobile" string="Téléphone Four"
+                           attrs="{'required':[('is_supplier', '=', False)], 'widget':'phone','invisible': [('is_supplier', '=', False)],}"/>
+                    <field name="mobile" string="Téléphone Ref"
+                           attrs="{'required':[('is_supplier', '=', False)], 'widget':'phone', 'invisible': [('is_supplier', '=', True)],}"/>
                 </field>
                 <field name="title" position="replace">
                     <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mister"
@@ -84,8 +106,19 @@
                            invisible="1"/>
                 </field>
 
-                <field name="user_id" position="replace">
-                     <field name="user_id" string="Commercial(e)" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Commercial"  attrs="{'invisible': [('is_supplier', '=', True)], 'required':[('is_supplier', '=', False)]}"/>
+                <field name="category_id" position="after">
+
+                    <field
+                            name="lastname_inter"
+                            attrs="{'invisible': [('is_supplier', '=', True)]}"
+                    />
+                    <field
+                            name="firstname_inter"
+                            attrs="{'invisible': [('is_supplier', '=', True)]}"
+                    />
+                    <field name="email_inter" widget="email" context="{'gravatar_image': True}" string="Email Inter"
+                           attrs="{'invisible': [('is_supplier', '=', True)]}"/>
+
                 </field>
 
                 <xpath expr="//sheet/notebook/page[@name='sales_purchases']" position="replace">
@@ -94,7 +127,7 @@
                             <group string="Sales" name="sale" priority="1">
                                 <field name="user_id" domain="[('share', '=', False)]"/>
                             </group>
-                            <group string="Purchase" name="purchase" priority="2">
+                            <group string="Achat" name="purchase" priority="2">
                             </group>
                             <group name="misc" string="Misc">
                                 <field name="ref" string="Reference"/>
@@ -112,8 +145,8 @@
                         <field name="comment" placeholder="Internal note..."/>
                     </page>
                 </xpath>
-                <xpath expr="//sheet/notebook/page[@name='contact_addresses']" position="replace">
-                </xpath>
+                <!--                <xpath expr="//sheet/notebook/page[@name='contact_addresses']" position="replace">-->
+                <!--                </xpath>-->
 
                 <!--                <xpath expr="//sheet/group/group[1]" position="replace">-->
                 <!--                    <group>-->
@@ -153,26 +186,14 @@
                 <!--                           options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"-->
                 <!--                           attrs="{'invisible': [('is_supplier', '=', True)], 'required':[('is_supplier', '=', False)]}"/>-->
                 <!--                </xpath>-->
-                <xpath expr="//sheet/div[2]/field[@name='company_type']" position='after'>
-                    <div>
-                        <label for="is_customer" string="Est un client"
-                               attrs="{'invisible': [('is_supplier', '=', True)]}"/>
-                        <field name="is_customer" no_label="1" attrs="{'invisible': [('is_supplier', '=', True)]}"
-                               readonly="1"/>
 
-                        <label for="is_supplier" string="Est un Fournisseur"
-                               attrs="{'invisible': [('is_supplier', '=', False)]}"/>
-                        <field name="is_supplier" no_label="1" attrs="{'invisible': [('is_supplier', '=', False)]}"
-                               readonly="1"/>
-                    </div>
-                </xpath>
-                <xpath expr="//sheet" position="after">
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
-                </xpath>
+                <!--                <xpath expr="//sheet" position="after">-->
+                <!--                    <div class="oe_chatter">-->
+                <!--                        <field name="message_follower_ids"/>-->
+                <!--                        <field name="activity_ids"/>-->
+                <!--                        <field name="message_ids"/>-->
+                <!--                    </div>-->
+                <!--                </xpath>-->
             </field>
         </record>
 

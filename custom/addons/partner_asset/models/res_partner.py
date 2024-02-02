@@ -20,11 +20,7 @@ class ResPartner(models.Model):
 
     contract_ids = fields.One2many('partner.contract', 'partner_id', string='Contracts')
 
-    lastname_inter = fields.Char("Nom Interlocuteur", index=True)
-    firstname_inter = fields.Char("Prenom Interlocuteur", index=True)
-
-
-    # name_inter = fields.Char(
+    # inter_fullname = fields.Char(
     #     compute="_compute_name_inter",
     #     inverse="_inverse_name_inter_after_cleaning_whitespace",
     #     required=False,
@@ -32,19 +28,46 @@ class ResPartner(models.Model):
     #     readonly=False,
     #     string="Nom complet Inter"
     # )
+    lastname_inter = fields.Char("Nom Interlocuteur", index=True)
+    firstname_inter = fields.Char("Prenom Interlocuteur", index=True)
+    email_inter = fields.Char("Email Inter", index=True)
+
+    # @api.model
+    # def create(self, vals):
+    #     """Add inverted names at creation if unavailable."""
+    #     context = dict(self.env.context)
+    #     inter_fullname = vals.get("inter_fullname", context.get("default_inter_fullname"))
+    #
+    #     if inter_fullname is not None:
+    #         # Calculate the splitted fields
+    #         inverted = self._get_inverse_name_inter(
+    #             self._get_whitespace_cleaned_name_inter(inter_fullname),
+    #             vals.get("is_company", self.default_get(["is_company"])["is_company"]),
+    #         )
+    #         for key, value in inverted.items():
+    #             if not vals.get(key) or context.get("copy"):
+    #                 vals[key] = value
+    #
+    #         # Remove the combined fields
+    #         if "inter_fullname" in vals:
+    #             del vals["inter_fullname"]
+    #         if "default_inter_fullname" in context:
+    #             del context["default_inter_fullname"]
+    #     # pylint: disable=W8121
+    #     return super(ResPartner, self.with_context(context)).create(vals)
     #
     #
     # @api.depends("lastname_inter", "firstname_inter")
     # def _compute_name_inter(self):
     #     for record in self:
-    #         record.name = record._get_computed_name(record.lastname_inter, record.firstname_inter)
+    #         record.inter_fullname = record._get_computed_name(record.lastname_inter, record.firstname_inter)
     #
     # def _inverse_name_inter_after_cleaning_whitespace(self):
     #
     #     for record in self:
     #         # Remove unneeded whitespace
-    #         clean = record._get_whitespace_cleaned_name(record.name)
-    #         record.name = clean
+    #         clean = record._get_whitespace_cleaned_name_inter(record.firstname_inter)
+    #         record.firstname_inter = clean
     #         record._inverse_name_inter()
     #
     # @api.model
